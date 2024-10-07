@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import Webcam from "react-webcam";
+import Webcam from 'react-webcam';
 
 const WebcamCapture = () => {
     const webcamRef = useRef<any>(null);
@@ -13,6 +13,7 @@ const WebcamCapture = () => {
     const [recordedChunks, setRecordedChunks] = useState<Blob[]>([]);
     const [deviceAccessError, setDeviceAccessError] = useState<string | null>(null);
     const [hasAudio, setHasAudio] = useState<boolean>(true);
+    const [facingMode, setFacingMode] = useState<'user' | 'environment'>('user');
 
     // Check for media device and MediaRecorder support
     const checkDeviceSupport = () => {
@@ -59,6 +60,16 @@ const WebcamCapture = () => {
         setImageSrc(imageSrc);
     };
 
+    // Save image to the user's device
+    const saveImage = () => {
+        if (imageSrc) {
+            const link = document.createElement('a');
+            link.href = imageSrc;
+            link.download = 'captured-image.jpg';
+            link.click();
+        }
+    };
+
     // Start recording video
     const startCapture = () => {
         if (webcamRef.current && webcamRef.current.stream) {
@@ -96,6 +107,13 @@ const WebcamCapture = () => {
             });
             const videoUrl = URL.createObjectURL(blob);
             setVideoSrc(videoUrl);
+
+            // Save video to the user's device
+            const link = document.createElement('a');
+            link.href = videoUrl;
+            link.download = 'recorded-video.webm';
+            link.click();
+
             setRecordedChunks([]);
         }
     };
@@ -119,12 +137,23 @@ const WebcamCapture = () => {
             const blob = new Blob([event.data], { type: 'audio/webm' });
             const audioUrl = URL.createObjectURL(blob);
             setAudioSrc(audioUrl);
+
+            // Save audio to the user's device
+            const link = document.createElement('a');
+            link.href = audioUrl;
+            link.download = 'recorded-audio.webm';
+            link.click();
         }
+    };
+
+    // Toggle camera (front/back)
+    const switchCamera = () => {
+        setFacingMode((prev) => (prev === 'user' ? 'environment' : 'user'));
     };
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen">
-            <h1 className="text-2xl mb-4">Webcam and Audio Capture</h1>
+            <h1 className="text-2xl mb-4">Webcam, Audio, and Video Capture</h1>
 
             {/* Handle device access errors */}
             {deviceAccessError ? (
@@ -139,7 +168,7 @@ const WebcamCapture = () => {
                         width={400}
                         height={300}
                         videoConstraints={{
-                            facingMode: 'user',
+                            facingMode: facingMode,
                         }}
                         audio={hasAudio} // Enable/disable audio
                     />
@@ -155,7 +184,7 @@ const WebcamCapture = () => {
                                 className="bg-red-500 text-white px-4 py-2 rounded"
                                 onClick={stopCapture}
                             >
-                                Stop Recording
+                                Stop Recording Video
                             </button>
                         ) : (
                             <button
@@ -173,6 +202,12 @@ const WebcamCapture = () => {
                                 Save Video
                             </button>
                         )}
+                        <button
+                            className="bg-yellow-500 text-white px-4 py-2 rounded"
+                            onClick={switchCamera}
+                        >
+                            Switch Camera
+                        </button>
                     </div>
 
                     {/* Capture audio buttons */}
@@ -190,6 +225,12 @@ const WebcamCapture = () => {
                         <div className="mb-4">
                             <h2 className="text-xl">Captured Image:</h2>
                             <img src={imageSrc} alt="Captured" className="mt-2 border" />
+                            <button
+                                className="bg-purple-500 text-white px-4 py-2 rounded mt-2"
+                                onClick={saveImage}
+                            >
+                                Save Image
+                            </button>
                         </div>
                     )}
 
