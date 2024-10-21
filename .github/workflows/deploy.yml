@@ -1,0 +1,29 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - master  # Change this to your deployment branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ WtsDbvnSo0PSvs864X5W+7UhXggYa4ih7QtUL8W5JEE }}
+
+    - name: Deploy to server
+      run: |
+        ssh your-server-user@your-server-ip << 'EOF'
+          cd /var/www/crypto-next
+          git pull origin master
+          npm install
+          npm run build
+          pm2 restart crypto
+        EOF
