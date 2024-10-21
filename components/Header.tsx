@@ -15,7 +15,7 @@ const Header = () => {
 
     return (
         <div className='w-full px-16 py-8 flex items-center justify-between'>
-            <h1 className='text-center text-4xl font-bold'>Crypto App 2</h1>
+            <h1 className='text-center text-4xl font-bold'>Crypto App 3</h1>
 
             <Image
                 onClick={handleTheme}
