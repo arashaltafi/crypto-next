@@ -18,6 +18,10 @@ jobs:
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+    - name: Add server to known hosts
+      run: |
+        ssh-keyscan -H 5.161.208.85 >> ~/.ssh/known_hosts
+
     - name: Deploy to server
       run: |
         ssh your-server-user@5.161.208.85 << 'EOF'
