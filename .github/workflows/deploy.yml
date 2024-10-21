@@ -16,7 +16,7 @@ jobs:
     - name: Set up SSH
       uses: webfactory/ssh-agent@v0.5.3
       with:
-        ssh-private-key: ${{ WtsDbvnSo0PSvs864X5W+7UhXggYa4ih7QtUL8W5JEE }}
+        ssh-private-key: ${{ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCm+zCDGXJv11JBYiIfIhMXBK1X3dlDFhoXkcTZ3jsKX5jh2FAuPITbGWqFH+7pq0c+Nvx8w3HoayJLegyv8JRaI1xhB3AZP0PxjiSnXjKlEKiJsTQylrC74EtBSnqrloNrGn8oWdcPP46iV9Vdv56WErBkwHwxnKD09VnYYDkgqvlibOn8Rto9k63Q0VWfi/zhi/7s984jw1LJkzC7WWpiZwbDb/wm5O7mGm3y7vx7tSOlwKrkqOIAnuXUMtENAKA8Ti/5Db4NKG13bOkoi8TbBmOrZqe34oZSd9lVWFgjKyxnb8PakihusBC3QFF+6Jj0Lq1JGUS9fACIUOxJ7Vsy/+aAJXFgTW2Y92t1UZttoQvojyZoOCVFRtheRo6XnSbfI72Eiv6g1be9fsj/Bf2eLlP70pZ+dZjJeIVay7bAAQQz7Tiv6990bJ/M/zfYTBNwMyK2ATO99BfWjetnQbMhoDP3vLPVdJ2RokgrpyrQ6EcLSgQbemxOJcPfmDZcnVZeLYYvuNzxiWGBsAfWSA1D1kTvOVgn71QwIcd1oCrPIdSQ/lhsHXws/m8g2kjMhsdE8X2Ynpb8F9FayIhaFVkBCIXaT2wG4sDZdDb8GB2zXPMAwe9CwMOTU5yZW23+vGrm1+CQ169g7KjGBvqBhFeFLCIQxsp3Ml2Gn6/71GwKdw== arashaltafi1377@gmail.com }}
 
     - name: Deploy to server
       run: |
