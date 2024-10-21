@@ -25,7 +25,7 @@ jobs:
     - name: Deploy to server
       run: |
         ssh your-server-user@5.161.208.85 << 'EOF'
-          cd /var/www/crypto-next
+          cd /root/source/crypto-next
           git pull origin master
           npm install
           npm run build
